@@ -1,7 +1,7 @@
 
 import { Row, Col, Form } from 'react-bootstrap';
 export default function Login(props){
-    const {logged, setLogin, login} = props;
+    const {logged, setLogin, login, changeHandler, allValues} = props;
     return (
         <main className="page-content">
             <div className="page-inner">
@@ -13,10 +13,10 @@ export default function Login(props){
                             <p className="text-center m-t-md">Please login into your account.</p>
                             <Form className="m-t-md" onSubmit={login}>
                                 <Form.Group>
-                                    <Form.Control type="email" placeholder="Email" required />
+                                    <Form.Control name="login" placeholder="Usuario" value={allValues.login} onChange={changeHandler} required />
                                 </Form.Group>
                                 <div className="form-group">
-                                    <input type="password" className="form-control" placeholder="Password" required/>
+                                    <input type="password" name="password" className="form-control" placeholder="Contraseña" onChange={changeHandler} required/>
                                 </div>
                                 <button type="submit" className="btn btn-success btn-block">Login</button>
                                 <a href="forgot.html" className="display-block text-center m-t-md text-sm">Forgot Password?</a>
