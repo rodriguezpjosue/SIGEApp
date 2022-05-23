@@ -31,8 +31,18 @@ function App() {
 
     try {
       const axiosResponse = await axios.post(`${location}`, settings, {headers: headers});
-      console.log(axiosResponse.data.result);
-      setLogin(true);
+      let result = JSON.parse(axiosResponse.data.result);
+      console.log(result);
+
+      if (result.uid) {
+        setLogin(true);
+        window.sessionStorage.setItem('sid', result.session_id)
+      } else {
+        console.log(result.uid);
+        setLogin(false);
+        alert('Usuario o contraseña incorrecto')
+      }
+      
     } catch (e){
       console.log(e);
     }
@@ -43,7 +53,7 @@ function App() {
     <div className="App">
       {logged 
         ? <Informes /> 
-        : <Login logged={logged} setLogin={setLogin} login={login} changeHandler={changeHandler} allValues={allValues}/>
+        : <Login login={login} changeHandler={changeHandler} allValues={allValues}/>
       }
     </div>
   );

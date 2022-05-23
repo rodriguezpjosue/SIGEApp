@@ -1,7 +1,7 @@
 
 import { Row, Col, Form } from 'react-bootstrap';
 export default function Login(props){
-    const {logged, setLogin, login, changeHandler, allValues} = props;
+    const {login, changeHandler, allValues} = props;
     return (
         <main className="page-content">
             <div className="page-inner">
