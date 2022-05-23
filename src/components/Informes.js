@@ -10,8 +10,10 @@ export default function Informes(props){
         // call api or anything
         const getInformes = async () => {
             const location = 'https://sige.emmanuel.pe/rest/search_read';
+            let sid = window.sessionStorage.getItem('sid');
             const settings = {
-              model: 'sige.informereunion'
+              model: 'sige.informereunion',
+              sid: sid
             }
             const headers = {
               'Content-Type': 'application/json',
@@ -19,14 +21,15 @@ export default function Informes(props){
             }
             
             try {
-              const axiosResponse = await axios.post(`${location}`, settings, {headers: headers});
-              //console.log(axiosResponse.data.result);
+              const axiosResponse = await axios.post(`${location}`, settings, {headers: headers, withCredentials: true});
+              console.log(axiosResponse.data.result);
               let result = axiosResponse.data.result;
               if (result.data){
                 setInformes(result.data);
               }
             } catch (e){
-              console.log(e);
+              let error = JSON.parse(e.response.data.result);
+              console.log(error.error);
             }
         
         }

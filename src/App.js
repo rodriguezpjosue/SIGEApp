@@ -7,6 +7,7 @@ import './css/modern.min.css';
 import './css/custom.css';
 
 function App() {
+  //axios.defaults.withCredentials = true;
   const [logged, setLogin] = useState(false);
   const [allValues, setAllValues] = useState({
     login: '',
@@ -30,13 +31,13 @@ function App() {
     }
 
     try {
-      const axiosResponse = await axios.post(`${location}`, settings, {headers: headers});
+      const axiosResponse = await axios.post(`${location}`, settings, {headers: headers, withCredentials: true});
       let result = JSON.parse(axiosResponse.data.result);
       console.log(result);
 
-      if (result.uid) {
+      if (result.data.uid) {
         setLogin(true);
-        window.sessionStorage.setItem('sid', result.session_id)
+        window.sessionStorage.setItem('sid', result.data.session_id)
       } else {
         console.log(result.uid);
         setLogin(false);
@@ -44,7 +45,8 @@ function App() {
       }
       
     } catch (e){
-      console.log(e);
+      let error = JSON.parse(e);
+      console.log(error);
     }
 
   }
