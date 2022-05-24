@@ -1,5 +1,6 @@
 {
   "name": "sige",
+  "proxy": "https://sige.emmanuel.pe/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

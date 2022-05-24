@@ -19,20 +19,29 @@ function App() {
 
   const login = async (event) => {
     event.preventDefault();
-    const location = 'https://sige.emmanuel.pe/rest/login';
-    const settings = {
-      db: 'sige', 
-      login: allValues.login, 
-      password: allValues.password
-    }
+    const location = 'rest';
     const headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     }
+    const settings = {
+      method: 'post',
+      headers: headers,
+      body: JSON.stringify({
+                            endpoint: 'login',
+                            params: {
+                              db: 'sige', 
+                              login: allValues.login, 
+                              password: allValues.password
+                            }
+                          }),
+      credentials: 'include'
+    }
 
     try {
-      const axiosResponse = await axios.post(`${location}`, settings, {headers: headers, withCredentials: true});
-      let result = JSON.parse(axiosResponse.data.result);
+      const fetchResponse = await fetch(`${location}`, settings);
+      const json = await fetchResponse.json();
+      let result = JSON.parse(json.result);
       console.log(result);
 
       if (result.data.uid) {
@@ -47,6 +56,9 @@ function App() {
     } catch (e){
       let error = JSON.parse(e);
       console.log(error);
+      if (error.error) {
+        alert(error.error);
+      }
     }
 
   }
