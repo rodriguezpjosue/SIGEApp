@@ -28,11 +28,13 @@ function App() {
       method: 'post',
       headers: headers,
       body: JSON.stringify({
-                            endpoint: 'login',
                             params: {
-                              db: 'sige', 
-                              login: allValues.login, 
-                              password: allValues.password
+                              endpoint: 'login',
+                              args: {
+                                db: 'sige', 
+                                login: allValues.login, 
+                                password: allValues.password
+                              }
                             }
                           }),
       credentials: 'include'
@@ -62,6 +64,8 @@ function App() {
     }
 
   }
+
+  //const MemoInformes = React.memo(Informes);
 
   return (
     <div className="App">
