@@ -48,7 +48,9 @@ function App() {
 
       if (result.data.uid) {
         setLogin(true);
-        window.sessionStorage.setItem('sid', result.data.session_id)
+        window.sessionStorage.setItem('red_liderada', result.data.red_liderada);
+        window.sessionStorage.setItem('red_id', result.data.red_id);
+        window.sessionStorage.setItem('sid', result.data.session_id);
       } else {
         console.log(result.uid);
         setLogin(false);

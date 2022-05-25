@@ -9,6 +9,7 @@ export default function Informes(props){
     const getInformes = useCallback(async () => {
       const location = 'rest';
       let sid = window.sessionStorage.getItem('sid');
+      let red_liderada = window.sessionStorage.getItem('red_liderada');
       const headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -21,7 +22,8 @@ export default function Informes(props){
                                   endpoint: 'search_read',
                                   args: {
                                     model: 'sige.informereunion',
-                                    filter: "[('id','!=',None)]",
+                                    filter: "[('red_id','='," + red_liderada + ")]",
+                                    fields: "['fechareunion', 'tema', 'state']",
                                     sid: sid
                                   }
                                 }
@@ -64,6 +66,8 @@ export default function Informes(props){
         console.log(informes),
         informes.map((informe,index) => 
             <Row>
+                <Col md={3} className="center">{informe.id}</Col>
+                <Col md={3} className="center">{informe.fechareunion}</Col>
                 <Col md={3} className="center">{informe.display_name}</Col>
             </Row>
         )
